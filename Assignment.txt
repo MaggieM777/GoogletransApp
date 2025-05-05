@@ -152,3 +152,7 @@ st.info("Инфо")	Синя информационна кутия
 st.code("код", language="python")	Показва блок с код
 st.image("път_до_снимка.jpg")	Показва изображение
 
+
+линк към приложението
+https://apptrans-qfxmtguwwlzjwz7xpt32cu.streamlit.app/
+
