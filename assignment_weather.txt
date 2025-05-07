@@ -46,6 +46,32 @@ data = response.json()
 
 Текстов анализ: „Времето е с 3°C по-топло от обичайното за април“
 
+# 🧠 Изтегляне на прогнозни метео данни
+def get_weather_data():
+    response = requests.get(WEATHER_URL)
+    data = response.json()
+    weather = []
+
+    for entry in data["list"]:
+        date = datetime.fromtimestamp(entry["dt"]).date()
+        temp = entry["main"]["temp"]
+        rain = entry.get("rain", {}).get("3h", 0)
+        humidity = entry["main"]["humidity"]
+        weather.append({
+            "date": date,
+            "temp": temp,
+            "rain": rain,
+            "humidity": humidity
+        })
+
+    df = pd.DataFrame(weather)
+    df = df.groupby("date").agg({
+        "temp": "mean",
+        "rain": "sum",
+        "humidity": "mean"
+    })
+    return df
+
 5. Сравнение с нормите
 Средна стойност за месеца се задава ръчно в речник (или CSV):
 
